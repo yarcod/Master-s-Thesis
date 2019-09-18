@@ -1,0 +1,4 @@
+\chapter{Discussion}
+What IS the effect of introducing latency? How much of a performance hit do we face? Speculate in if performance scales with number of devices. Maybe talk about if it is a good idea to have a network of HMCs compared to just having a few HMCs close by and use IO interfaces for other types of storage instead. There are other types of topologies as well -- would they perform better? Decrease the max jumps and what-not.
+
+Normal real world cases would have a NUMA-aware OS, which would decrease this impact a lot. But if an application would use a lot of memory, then this could actually be applicable. 

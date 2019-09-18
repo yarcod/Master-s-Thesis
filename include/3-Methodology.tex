@@ -1,0 +1,50 @@
+\chapter{Methodology}
+Evaluating new memory technologies without having physical access to them requires simulation of their designs. There is always a measure of uncertainty and error when performing simulations, but it still gives a reasonable estimation of what to expect from the real hardware. Some argue that cycle accurate simulators might not be the best approach in system evaluation \cite{weaver2008cycle}, but as all memories will be evaluated with the same errors, the relationship between their performances should remain relevant. 
+TODO: Also discuss that HMC is meant to be used as a "near memory", and putting them in a chain might both be supported and justifiable but not perform as other near memory; hence no direct comparison with DRAM. Several jumps in a chain maybe should be regarded as far memory (discussion?) and here maybe some muli-level memory policies should apply. Mention intelligent prefetching data from higher levels to minimise/hide latency (application modifications?)
+
+First in this chapter the simulation software for micro architectures and memory technology is described. Next, a number of benchmark applications that will be run in the simulators are selected. Finally, the process of gathering and interpreting results is defined.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Simulators  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Simulators}
+For simulation of the memory network, two simulators will be used: Structural Simulation Toolkit (SST) and HMCSim. The former is used for accurate microarchitecture simulation, while the latter is used to simulate the HMC memory. 
+\subsection{SST}
+SST is an architectural simulator which supports execution of x86 binaries, through Intel Pin Tool, towards different memory back-ends [REF TO SST PAPER HERE]. It uses a modular front-end back-end framework, where each part can be replaced independently to model different architectural configurations during runtime. In addition, it has a Processor/Thread Interface which enables communication between the front- and back-ends, and it uses Enkidu [REF TO THAT] to coordinate all communication. 
+
+There is already an integration between HMCSim and SST, which is also actively being updated, This means that memory requests sent from the CPU model can create memory requests and send them down a specific link. However, there has not been real support for multiple devices previously; while it has been possible to add more than one device before, they were never used and never interacted with one another. When adding more devices, both the connection between devices within HMCSim and the knowledge about the other devices towards SST had to be implemented. While the idea behind HMC networks is that a CPU node can be inserted just about anywhere in the network still holds true, the handling of links between devices had to be changed. More on this in the HMCSim section. SST could only use half of the available links to send and receive data to the network. Data is being sent in parallel in all of the links as much as possible, but if one link gets full requests will be passed to another link. This is to try avoid bottlenecking memory requests. In addition, an attempt was made to spread out data across multiple nodes by sending requests to devices at random (How was this random issued? Physical or virtual addresses?). In the end, this was in order to allow for different memory topologies, more on that later. 
+
+In addition to the changes to make SST work with HMCSim, SST lacked functionality to start and stop simulating the program execution after a set number of instructions. Due to no support for SimPoints, one billion instructions was set as the limit. In order to avoid measuring the wrong things in application, the simulator was also configured to skip ahead for 1 billion instructions. To be clear, max instructions was supported from the start, but the start trace after set number of instructions was not, and that was added. This was done by adding to the PIN interface a check for how many instructions had gone by and intercepting that particular instruction and activate tracing. 
+
+TODO: Mention that since HMC is meant to be used with a silicon interposer, the latencies used might not be true; it might not be feasible to add 8 HMCs to a single interposer, and if it were, they certainly would not be used in a chain. Topologies!
+
+%SST uses PIN to interpret x86 binaries. It is not cycle accurate, ref, etc. 
+%We have changed the memory backend that enables HMCSim integration. We have expanded the capabilities to have multiple HMC devices, as well as created a map in order to allocate memory evenly over all devices. This is to actually see some kind of latency at all. 
+
+%TODO:
+%Talk about the problems present in configuring and emulating behaviour from something that is made to be very secret. E.g. timings of DRAM, Idd, power, layout etc are all proprietary for all manufacturers. Lots of guessing involved. 
+
+%TODO:
+%Mention how HMC is configured, and include how that should emulate the same behaviour and justify its drawbacks.
+
+\subsection{HMCSim} \label{HMC-Sim}
+Describe both what is there already and what has been added. Describe what it does, how it functions to the best of your knowledge, and then mention what it has been lacking. Talk about what kind of "interfaces" has been added and what it adds. Talk about the how the interface (host->dev) from SST has been changed and how allocation is done (random?). 
+
+HMCSim was already integrated with SST from the start, which also partly lead to the decision to use SST. While HMCSim did support multiple devices earlier as well, they could not communicate fully with one another. There was an awareness of other devices, but requests that were destined for another device were turned into zombie requests. The first addition to HMCSim was to support forwarding and routing of packets. The implementation is pretty simple, and is only aimed at supporting this specific use case. A communication path was setup between devices that were linked together, and half of the available links were used to forward memory operations to the next deives in line. This effectively means that we have cut the available bandwidth in half as compared to only connecting to one device. Since HMC specification is not very strict on how communication is done within a network this is still an acceptable solution. 
+
+Now that there was support for inter-memory communication, there need be a way to set things up as well. The very basic case which is tested in here only allows for devices to be connected in chains. This is to show the worst case scenarios, and that multiple hops in a network will affect performance. A support for topologies was created, and the initialisation of the simulator would create a topology of a single, simple device as were available previously, as well as a chain topology. Possible apparent extensions to this implementation would be to allow for more topologies, or -- more importantly -- a way to easily create custom topologies. As mentioned earlier, the new implementation is not very flexible in its way of creating new topologies, as that involves smartly iterating over devices and links in order to get a functioning network. It is however possible, but it was decided that it would be enough to just measure worst-case scenarios. 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Benchmarks  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Benchmarks}
+SPEC CPU2006. Will mainly use memory bound - which? Select one that is more compute bound as well. Keep down the number of benches!
+\bigskip
+
+Benches that are included:
+MCF, lbm, libquantum, omnetpp, and perlbench (for showing that mainly memory bound benches are affected). Used test data set in order to keep execution time to a minimum.
+
+A benchmark which measures a system's sustainable memory bandwidth is STREAM \cite{mccalpin1995memory}, which is a memory bound application. It is designed to perform memory operations which exceed the cache size, and thus generates a lot of last level cache (LLC) misses.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Measurments  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Measurement approach}
+Measure latency is done only in HMCSim, as we do not care about any latency that SST introduces as that is only for processing and cache. That makes gathering stats a little easier. There are separate APIs that enables latency stats. Will use average latency to compare between system configs. What are the configs going to be? Should we actaully compare DRAM and HMC, or just the allocation on multiple devices, i.e., the direct implication of introduced latency. TODO: Add cache warm-up as well.

@@ -1,0 +1,4 @@
+\chapter{Conclusion}
+The most likely conclusion to draw is that normal applications normally doesn't care about how fast memories are as they do not utilize that speed. In our test cases we go to memory more often with our use of only a small L1 cache, which makes the impact larger than it would be in real life. The setup does scew the reults a bit, but that also only show how little impact it does have on "real" applications. 
+
+Most likely you should set up the HMC network if your need for large memory is big enough. You would also most likely not see that much of an impact of having a network normally, as NUMA aware OSes would fix most of these problems. 
