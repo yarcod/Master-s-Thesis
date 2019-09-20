@@ -1,0 +1,12 @@
+Main.out
+Main.aux
+Main.bbl
+Main.blg
+Main.fdb_latexmk
+Main.fls
+Main.log
+Main.pdf
+Main.synctex.gz
+Main.toc
+.vscode/spellright.dict
+.vscode/settings.json

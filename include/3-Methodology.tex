@@ -48,3 +48,10 @@ A benchmark which measures a system's sustainable memory bandwidth is STREAM \ci
 
 \section{Measurement approach}
 Measure latency is done only in HMCSim, as we do not care about any latency that SST introduces as that is only for processing and cache. That makes gathering stats a little easier. There are separate APIs that enables latency stats. Will use average latency to compare between system configs. What are the configs going to be? Should we actaully compare DRAM and HMC, or just the allocation on multiple devices, i.e., the direct implication of introduced latency. TODO: Add cache warm-up as well.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%% Goal and Limitations %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Goal}
+Novel technologies often come with a lot of promise -- in this case to breach the so far insurmountable memory wall -- but the statistics and numbers presented are usually under ideal circumstances. The potential for lower memory latency is for certain applications very welcome, but this has not been extensively tested. This thesis aims to investigate how big an impact the increased latency of having multiple Hybrid Memory Cubes in a network has on performance on running applications. The applications used will primarily be targeting High Performance Computing (HPC), as that is the main target group of HMC. This will be achieved by running x86 benchmark binaries through an HMC simulator along with a CPU architectural simulator. TODO: expand on why HMC was chosen in the end. E.g. there are actual devices to by and test, available simulator models etc. 
+
+\section{Limitations}
+Stacked memories aim at providing higher bandwidth along with lower memory latency. As such, the applications expected to be affected the most by this are memory bound and those will be run primarily. However, since general application performance is also important, a few of these will be included for reference as well. TODO: Relative performance in terms of runtime basically. Compute IPC possible? 
