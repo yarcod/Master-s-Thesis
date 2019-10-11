@@ -33,17 +33,27 @@ Apart from introducing great potential in the future there are also some additio
 \bigskip
 
 \section{Stacking memories}
-TODO: While stacking can be done in several ways, there are a number of approaches to stacking only memories as well. Often memories are targeted for a specific integration method based on their architecture etc. 
+TODO: While stacking can be done in several ways, there are a number of approaches to stacking only memories as well, which in turn will either connect to a cpu-side memory controller or integrates its own controller.
+\bigskip
+
+TODO: Advantages of stacking memory. Latency, power, performance etc.
+\bigskip
 
 There are a few noteworthy types of stacked memories: Hybrid Memory Cube (HMC), designed by Micron; High Bandwidth Memory (HBM), a JEDEC standard since 2013; and Wide-IO (WIO), also a JEDEC standard, since 2011. While the two former are designed for 2.5D integration -- memory on the same substrate as the processor -- the latter supports 2.5D, but is primarily aimed for 3D integration. TODO: Cite article stacking MRAM/STT-RAM as well to show that there are alternatives out there. TODO: Also mention that modern NAND flash today is stacked (3D- or V-NAND), used a lot. 
 \bigskip
 
-These memory technologies are all quite similar, but they primarily target different market segments. HMC is designed for high bandwidth at relatively high energy consumption and is comparatively expensive. This makes it more suitable for High Performance Computing (HPC) systems. HBM was designed specifically for graphics applications, and there have been multiple commercial products (graphics cards) utilising this memory type in recent years. Similarly to HMC, this technology is made for systems where adequate cooling is available and where a higher cost can be somewhat overlooked. WIO on the other hand is architectured for being integrated on top of -- 3D integrated -- System on Chips (SoCs). These types of systems are generally found in mobile devices, which is also what WIO is designed for. Like HBM, WIO hopes to increase the performance of the graphics processors inside mobile devices. 
+These memory technologies are all quite similar, but they primarily target different market segments. HMC is designed for high bandwidth at relatively high energy consumption and is comparatively expensive. This makes it more suitable for High Performance Computing (HPC) systems. HBM was designed specifically for graphics applications, and there have been multiple commercial products (graphics cards) utilising this memory type in recent years. Similarly to HMC, this technology is made for systems where adequate cooling is available and where a higher cost can be somewhat overlooked. WIO is, as opposed to the others, architectured for being integrated on top of System on Chips (SoCs). These types of systems are generally found in mobile devices, which is also what WIO is designed for. Like HBM, WIO hopes to increase the performance of the graphics processors inside mobile devices. These specific memory types are talked about in more detail in section \ref{background}.
 \bigskip
 
 TODO: A section about pure tech cost, where DRAM is cheapest etc. Mention that recent CPU designs are already working with "chiplets" or Package-on-Package (PoP), which already includes some kind of interposer. This means that that cost is already present and taken into account. According to Samsung pure Silicon cost of an interposer (2016) is \$20.
+\bigskip
+
+TODO: Disadvantages - complexity in manufacturing, heat dissipation and testing. These things have already been mentioned somewhat, but it might not be clear that these problems are still present when talking memory only. 
+TODO: Memories, stacked especially, show a positive feedback loop with respect to power usage, temperature and leakage power. https://ieeexplore.ieee.org/abstract/document/7252085 \cite{4212027}
 
 While these emerging types of memories are of interest on their own, whether they are non-volatile or standard DRAM, they could also be used in a Multi-Level Memory (MLM) design. An MLM design could utilise both the higher bandwidth of, e.g., HMC with the lower cost of DDR memory. A method has been described by Jayaraj et al \cite{Jayaraj:2015:PPM:2818950.2818976}, where HMC is being used as a scratchpad type memory while DDR is still being used as main memory. This results in a higher performance while at a lower Bill of Materials (BoM) cost compared to a system using only DDR. However, the added cost of designing such a system is not included and not all applications are memory bound enough to benefit. Furthermore, it would also be necessary for software developers to optimise their applications for this setup in order to see any major gains \cite{Bender:2015:KCT:2818950.2818977}\cite{BENDER2017213}. TODO: If including PCM, mention multi-level memories here as well, with examples using PCM and DRAM buffers. Aka hybrid memory types.
 \bigskip
+
+TODO: Perhaps include a small conclusion that today the best use of stacked memories could be in combination with more traditional DRAM, in order to have a trade-off between price, capacity and price. Pure stacked solutions tend to get expensive and hard(er) to control thermals. AMD skipping on HBM recently. Ref to interview where executives compare GDDR and HBM memories. additionally the NVRAM memories are still some time in the future with only Intel Optane ready for real-world use so far (PCM); they may potentially provide the ultimate storage solutions, but not yet. 
 
 %In the following chapters, we start off with the background of today's SDRAM memories and continue to explain how the emerging technologies operate. Then, we describe the different components, benchmark applications and simulators used in achieving the subsequent results. After that, we discuss the results and the implications they might have and finally give our conclusion. 
