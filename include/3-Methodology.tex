@@ -33,6 +33,8 @@ HMCSim was already integrated with SST from the start, which also partly lead to
 
 Now that there was support for inter-memory communication, there need be a way to set things up as well. The very basic case which is tested in here only allows for devices to be connected in chains. This is to show the worst case scenarios, and that multiple hops in a network will affect performance. A support for topologies was created, and the initialisation of the simulator would create a topology of a single, simple device as were available previously, as well as a chain topology. Possible apparent extensions to this implementation would be to allow for more topologies, or -- more importantly -- a way to easily create custom topologies. As mentioned earlier, the new implementation is not very flexible in its way of creating new topologies, as that involves smartly iterating over devices and links in order to get a functioning network. It is however possible, but it was decided that it would be enough to just measure worst-case scenarios. 
 
+TODO: Mention what numbers are being used and see if we can get back the source for those numbers!
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Benchmarks  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Benchmarks}
