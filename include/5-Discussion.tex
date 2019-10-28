@@ -4,3 +4,5 @@ What IS the effect of introducing latency? How much of a performance hit do we f
 Normal real world cases would have a NUMA-aware OS, which would decrease this impact a lot. But if an application would use a lot of memory, then this could actually be applicable. 
 
 It should be mentioned that after the start of this thesis, Micron has ended their initiative in HMC -- the website for the technology does not longer exist for example. Micron are instead now working with HBM2E and newer technology. 
+
+TODO: Could be interesting to add that it has been investigated in the same simulator whether MLMs actually add any performance to a system. It is quite extendable as such and could be used for future work. Using HBM from DRAMSim2 instead of HMCSim could perhaps give other results, as compared to using HMC which they were using (I think) \cite{Awad:2017:PAU:3132402.3132422}. Perhaps also speculate whether a HMC memory controller could act as the MLM manager, deciding whether a specific allocation should end up in fast or slow memory. Applicable to HBM as well? Although it being a slower type of memory.

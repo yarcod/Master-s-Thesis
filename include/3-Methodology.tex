@@ -1,13 +1,18 @@
 \chapter{Methodology}
-Evaluating new memory technologies without having physical access to them requires simulation of their designs. There is always a measure of uncertainty and error when performing simulations, but it still gives a reasonable estimation of what to expect from the real hardware. Some argue that cycle accurate simulators might not be the best approach in system evaluation \cite{weaver2008cycle}, but as all memories will be evaluated with the same errors, the relationship between their performances should remain relevant. 
+Evaluating new memory technologies without having physical access to them requires simulation of their designs. There is always a measure of uncertainty and error when performing simulations, but it still gives a reasonable estimation of what to expect from the real hardware. Some argue that, e.g., cycle accurate simulators might not be the best approach in system evaluation \cite{weaver2008cycle}, but in this study all memories will be evaluated with the same errors, and thus the relationship between their performances should remain relevant. 
+\bigskip
+
+HMC is meant to be used as near memory -- being integrated close to the CPU -- and putting them in a chain might be a stretch. Although it would be both supported and justifiable from a technical point of view, it might be hard and/or expensive to implement this in reality. Having multiple jumps in a network, which inherently will increase latency, should after a certain threshold arguably be regarded as far-memory. This would then imply that we would need to either regard this system as a MLM or a NUMA and then there would need to be policies used for that as well. Alternatively there could be some intelligent prefetching added in the network, but that would also increase network load. In this case we will simplify and regard all HMC nodes as near memory. In addition, we will only allocate memory on one cube at a time.
 TODO: Also discuss that HMC is meant to be used as a "near memory", and putting them in a chain might both be supported and justifiable but not perform as other near memory; hence no direct comparison with DRAM. Several jumps in a chain maybe should be regarded as far memory (discussion?) and here maybe some muli-level memory policies should apply. Mention intelligent prefetching data from higher levels to minimise/hide latency (application modifications?)
+\bigskip
 
 First in this chapter the simulation software for micro architectures and memory technology is described. Next, a number of benchmark applications that will be run in the simulators are selected. Finally, the process of gathering and interpreting results is defined.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Simulators  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Simulators}
-For simulation of the memory network, two simulators will be used: Structural Simulation Toolkit (SST) and HMCSim. The former is used for accurate microarchitecture simulation, while the latter is used to simulate the HMC memory. 
+For simulation of the memory network, two simulators will be used: Structural Simulation Toolkit (SST) and HMCSim. The former is used for accurate microarchitecture simulation, while the latter is used to simulate the HMC memory. There were not many simulators for HMC available when this project started, which lead to the use of HMCSim. This simulator in turn was already integrated with SST and this would significantly lower the amount of development needed to start.
+
 \subsection{SST}
 SST is an architectural simulator which supports execution of x86 binaries, through Intel Pin Tool, towards different memory back-ends [REF TO SST PAPER HERE]. It uses a modular front-end back-end framework, where each part can be replaced independently to model different architectural configurations during runtime. In addition, it has a Processor/Thread Interface which enables communication between the front- and back-ends, and it uses Enkidu [REF TO THAT] to coordinate all communication. 
 
@@ -17,8 +22,10 @@ In addition to the changes to make SST work with HMCSim, SST lacked functionalit
 
 TODO: Mention that since HMC is meant to be used with a silicon interposer, the latencies used might not be true; it might not be feasible to add 8 HMCs to a single interposer, and if it were, they certainly would not be used in a chain. Topologies!
 
-%SST uses PIN to interpret x86 binaries. It is not cycle accurate, ref, etc. 
-%We have changed the memory backend that enables HMCSim integration. We have expanded the capabilities to have multiple HMC devices, as well as created a map in order to allocate memory evenly over all devices. This is to actually see some kind of latency at all. 
+TODO:SST uses PIN to interpret x86 binaries. It is not cycle accurate, ref, etc. Limited to PIN 2.x as 3.x had some weird requirements as compared to 2, which required a major rewrite of memory backend. Tried to include it myself. One advantage is that bench is executed as if in a real machine, apart from OS sched.
+TODO: Mention alternative, perhaps more widely used, where program traces are created and then replayed in the simulator. Did not get this to work.
+
+%We have changed the memory backend that enables HMCSim integration. We have expanded the capabilities to have multiple HMC devices, as well as tried to created a map in order to allocate memory evenly over all devices. This is to actually see some kind of latency at all. 
 
 %TODO:
 %Talk about the problems present in configuring and emulating behaviour from something that is made to be very secret. E.g. timings of DRAM, Idd, power, layout etc are all proprietary for all manufacturers. Lots of guessing involved. 
@@ -52,12 +59,3 @@ Depict a roofline model, if one exists already. Reference to what it is and sour
 
 \section{Measurement approach}
 Measure latency is done only in HMCSim, as we do not care about any latency that SST introduces as that is only for processing and cache. That makes gathering stats a little easier. There are separate APIs that enables latency stats. Will use average latency to compare between system configs. What are the configs going to be? Should we actaully compare DRAM and HMC, or just the allocation on multiple devices, i.e., the direct implication of introduced latency. TODO: Add cache warm-up as well.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%% Goal and Limitations %%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Goal}
-Novel technologies often come with a lot of promise -- in this case to breach the so far insurmountable memory wall -- but the statistics and numbers presented are usually under ideal circumstances. The potential for lower memory latency is for certain applications very welcome, but this has not been extensively tested. This thesis aims to investigate how big an impact the increased latency of having multiple Hybrid Memory Cubes in a network has on performance on running applications. The applications used will primarily be targeting High Performance Computing (HPC), as that is the main target group of HMC. This will be achieved by running x86 benchmark binaries through an HMC simulator along with a CPU architectural simulator. TODO: expand on why HMC was chosen in the end. E.g. there are actual devices to by and test, available simulator models etc. 
-
-\section{Limitations}
-Stacked memories aim at providing higher bandwidth along with lower memory latency. As such, the applications expected to be affected the most by this are memory bound and those will be run primarily. However, since general application performance is also important, a few of these will be included for reference as well. TODO: Relative performance in terms of runtime basically. Compute IPC possible? 
-TODO: No real scheduling done to which cube memory is allocated. Random would not be realistic, with spatial locality being neglected (although closed page policy etc.) - prefetch?
-TODO: No regard is taken to power or thermal distribution. By using algorithms to determine high/low temperatures, one could optimise the memory's function and performance (IRL at least).
