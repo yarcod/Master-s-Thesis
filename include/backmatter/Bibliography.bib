@@ -702,8 +702,81 @@ doi={10.1109/HPCA.2017.58},
 ISSN={},
 month={Feb},}
 
+%% HMC vs DRAM performance comparison
+@InProceedings{santosHMCvsDRAM2017,
+author="Santos, Paulo C.
+and Alves, Marco A. Z.
+and Carro, Luigi",
+editor="G{\"o}tz, Marcelo
+and Schirner, Gunar
+and Wehrmeister, Marco Aur{\'e}lio
+and Al Faruque, Mohammad Abdullah
+and Rettberg, Achim",
+title="HMC and DDR Performance Trade-offs",
+booktitle="System Level Design from HW/SW to Memory for Embedded Systems",
+year="2017",
+publisher="Springer International Publishing",
+address="Cham",
+pages="159--171",
+abstract="The evolution of main memories, from SDR to the current DDR, presents multiple technological breakthroughs, but still far from the requirements of the processors. With the advent of Hybrid Memory Cube (HMC), a promise of high bandwidth with low energy consumption and less area may provide better efficiency than the traditional DDR modules. This is especially attractive for embedded systems. In this paper, we perform a comprehensive performance comparison between HMC and DDR memories, to understand the capabilities and limitations of both. Simulation results running SPEC-CPU2006 and SPEC-OMP2001 benchmarks show that applications with low memory pressure behave similarly with HMC or DDR. We make the new observation that HMC performs better than DDR specially for applications with a high memory pressure and low spatial data locality. However, for applications with a streaming behavior, commonly present in the embedded system domain, our experiments show that current HMC row-buffer specifications do not take advantage of the spatial locality present in those applications.",
+isbn="978-3-319-90023-0"
+}
+
 %%%%%%%%%%%%%%%%% Methodology %%%%%%%%%%%%%%%%%
 
+%% CasHMC sim
+@ARTICLE{7544479,
+author={D. {Jeon} and K. {Chung}},
+journal={IEEE Computer Architecture Letters},
+title={CasHMC: A Cycle-Accurate Simulator for Hybrid Memory Cube},
+year={2017},
+volume={16},
+number={1},
+pages={10-13},
+keywords={DRAM chips;graph theory;memory architecture;statistical analysis;communication bandwidth;latency;performance evaluation;HMC simulators;CasHMC;cycle-by-cycle simulation;bandwidth graph;statistical data;Cþþ;HMC controller;communication links;HMC memory;single-wrapped object instantiation;memory access patterns;processor simulator;memory trace generator;high-speed serial links;GPU;graphic processing units;CPU;central processing units;PIM architecture;processing-in-memory architecture;server systems;3D-stacked DRAM;hybrid memory cube;cycle-accurate simulator;Random access memory;Bandwidth;Computer architecture;Benchmark testing;Computational modeling;Simulation;Analytical models;Memory control and access;memory design;modeling of computer architecture;simulation},
+doi={10.1109/LCA.2016.2600601},
+ISSN={},
+month={Jan},}
+
+%% HMCTherm
+@inproceedings{Yang:2018:HCH:3240302.3240319,
+ author = {Yang, Zhiyuan and Zuzak, Michael and Srivastava, Ankur},
+ title = {HMCTherm: A Cycle-accurate HMC Simulator Integrated with Detailed Power and Thermal Simulation},
+ booktitle = {Proceedings of the International Symposium on Memory Systems},
+ series = {MEMSYS '18},
+ year = {2018},
+ isbn = {978-1-4503-6475-1},
+ location = {Alexandria, Virginia, USA},
+ pages = {209--117},
+ numpages = {-91},
+ url = {http://doi.acm.org/10.1145/3240302.3240319},
+ doi = {10.1145/3240302.3240319},
+ acmid = {3240319},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {HMC, simulation, thermal},
+} 
+
+%% Multi-HMC tool
+@inproceedings{Siegl:2017:BAF:3132402.3132403,
+ author = {Siegl, Patrick and Buchty, Rainer and Berekovic, Mladen},
+ title = {A Bandwidth Accurate, Flexible and Rapid Simulating multi-HMC Modeling Tool},
+ booktitle = {Proceedings of the International Symposium on Memory Systems},
+ series = {MEMSYS '17},
+ year = {2017},
+ isbn = {978-1-4503-5335-9},
+ location = {Alexandria, Virginia},
+ pages = {71--82},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/3132402.3132403},
+ doi = {10.1145/3132402.3132403},
+ acmid = {3132403},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {bandwidth wall, memory architectures, memory wall, modeling, processing-in-memory, simulation},
+} 
+
+%% Cycle accurate simulation neccessary?
 @inproceedings{weaver2008cycle,
   title={Are cycle accurate simulations a waste of time},
   author={Weaver, V and McKee, S},
@@ -712,26 +785,67 @@ month={Feb},}
   year={2008}
 }
 
-@inproceedings{sanchez2013zsim,
-  title={ZSim: fast and accurate microarchitectural simulation of thousand-core systems},
-  author={Sanchez, Daniel and Kozyrakis, Christos},
-  booktitle={ACM SIGARCH Computer Architecture News},
-  volume={41},
-  number={3},
-  pages={475--486},
-  year={2013},
-  organization={ACM}
+%% Intel PIN tool
+@inproceedings{Luk:2005:PBC:1065010.1065034,
+ author = {Luk, Chi-Keung and Cohn, Robert and Muth, Robert and Patil, Harish and Klauser, Artur and Lowney, Geoff and Wallace, Steven and Reddi, Vijay Janapa and Hazelwood, Kim},
+ title = {Pin: Building Customized Program Analysis Tools with Dynamic Instrumentation},
+ booktitle = {Proceedings of the 2005 ACM SIGPLAN Conference on Programming Language Design and Implementation},
+ series = {PLDI '05},
+ year = {2005},
+ isbn = {1-59593-056-6},
+ location = {Chicago, IL, USA},
+ pages = {190--200},
+ numpages = {11},
+ url = {http://doi.acm.org/10.1145/1065010.1065034},
+ doi = {10.1145/1065010.1065034},
+ acmid = {1065034},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {dynamic compilation, instrumentation, program analysis tools},
+} 
+
+%% SST Simulator original paper
+@article{rodrigues2011structural,
+  title={The structural simulation toolkit},
+  author={Rodrigues, Arun F and Hemmert, K Scott and Barrett, Brian W and Kersey, Chad and Oldfield, Ron and Weston, Marlo and Risen, Rolf and Cook, Jeanine and Rosenfeld, Paul and CooperBalls, E and others},
+  journal={SIGMETRICS Performance Evaluation Review},
+  volume={38},
+  number={4},
+  pages={37--42},
+  year={2011}
 }
 
-@article{rosenfeld2011dramsim2,
-  title={DRAMSim2: A cycle accurate memory system simulator},
-  author={Rosenfeld, Paul and Cooper-Balis, Elliott and Jacob, Bruce},
-  journal={Computer Architecture Letters},
-  volume={10},
-  number={1},
-  pages={16--19},
-  year={2011},
-  publisher={IEEE}
+%% Another SST paper
+@article{11.1093/comjnl/bxr069,
+    author = {Hsieh, Ming-yu and Riesen, Rolf and Thompson, Kevin and Song, William and Rodrigues, Arun},
+    title = "{SST: A Scalable Parallel Framework for Architecture-Level Performance, Power, Area and Thermal Simulation}",
+    journal = {The Computer Journal},
+    volume = {55},
+    number = {2},
+    pages = {181-191},
+    year = {2011},
+    month = {07},
+    abstract = "{In this paper, we describe the integrated power, area and thermal modeling framework in the structural simulation toolkit (SST) for large-scale high performance computer simulation. It integrates various power and thermal modeling tools and computes run-time energy dissipation for core, network on chip, memory controller and shared cache. It also provides functionality to update the leakage power as temperature changes. We illustrate the utilization of the framework by applying it to explore interconnect options in manycore systems with consideration of temperature variation and leakage feedback. We compare power, energy-delay-area product (EDAP) and energy-delay product (EDP) of four manycore configurations-1 core, 2 cores, 4 cores and 8 cores per cluster. Results from simulation with or without consideration of temperature variation both show that the 4-core per cluster configuration has the best EDAP and EDP. Even so, considering that temperature variation increases total power dissipation, we demonstrate the importance of considering temperature variation in the design flow. With this power, area and thermal modeling capability, the SST can be used for hardware/software co-design of future exascale systems.}",
+    issn = {0010-4620},
+    doi = {10.1093/comjnl/bxr069},
+    url = {https://doi.org/10.1093/comjnl/bxr069},
+    eprint = {http://oup.prod.sis.lan/comjnl/article-pdf/55/2/181/978683/bxr069.pdf},
+}
+
+%% MLM memory with HBM and DRAM in SST
+@techreport{voskuilen2018analyzing,
+  title={Analyzing the performance of future memory architectures with SST.},
+  author={Voskuilen, Gwendolyn Renae},
+  year={2018},
+  institution={Sandia National Lab.(SNL-NM), Albuquerque, NM (United States)}
+}
+
+%% Details of memHierarchy
+@techreport{voskuilen2018sst,
+  title={SST Deep Dive: MemHierarchy.},
+  author={Voskuilen, Gwendolyn Renae},
+  year={2018},
+  institution={Sandia National Lab.(SNL-NM), Albuquerque, NM (United States)}
 }
 
 @article{leidel2014hmc,
@@ -840,5 +954,62 @@ month={Feb},}
  address = {New York, NY, USA},
  keywords = {application analysis, multi-level memory, simulation},
 } 
+
+%% HMC-MAC, using CasHMC sim for Multiply-Accumulate ops, PIM
+@ARTICLE{7917248,
+author={D. {Jeon} and K. {Park} and K. {Chung}},
+journal={IEEE Computer Architecture Letters},
+title={HMC-MAC: Processing-in Memory Architecture for Multiply-Accumulate Operations with Hybrid Memory Cube},
+year={2018},
+volume={17},
+number={1},
+pages={5-8},
+keywords={DRAM chips;logic circuits;memory architecture;parallel processing;logic die;CPU-based MAC operation;parallel processing;vault controllers;DSP systems;digital signal processing;digital signal processing systems;hybrid memory cube architecture;multiply-accumulate operation;processing-in memory architecture;HMC-MAC;memory size 128.0 KByte;Random access memory;Memory management;Registers;Memory architecture;Computers;Electronic mail;Memory structures;memory used as logic;multiple data stream srchitectures;parallel processing},
+doi={10.1109/LCA.2017.2700298},
+ISSN={},
+month={Jan},}
+
+%% NeuralHMC, based on HMC-MAC above. PIM
+@inproceedings{Min:2019:NEH:3287624.3287642,
+ author = {Min, Chuhan and Mao, Jiachen and Li, Hai and Chen, Yiran},
+ title = {NeuralHMC: An Efficient HMC-based Accelerator for Deep Neural Networks},
+ booktitle = {Proceedings of the 24th Asia and South Pacific Design Automation Conference},
+ series = {ASPDAC '19},
+ year = {2019},
+ isbn = {978-1-4503-6007-4},
+ location = {Tokyo, Japan},
+ pages = {394--399},
+ numpages = {6},
+ url = {http://doi.acm.org/10.1145/3287624.3287642},
+ doi = {10.1145/3287624.3287642},
+ acmid = {3287642},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {hybrid memory cube, processing-in-memory, simulation},
+}
+
+%% PIM arch HMC
+@INPROCEEDINGS{7804052,
+author={S. {Han} and H. {Seo} and B. {Kim} and E. {Chung}},
+booktitle={2016 IEEE Asia Pacific Conference on Circuits and Systems (APCCAS)},
+title={PIM architecture exploration for HMC},
+year={2016},
+volume={},
+number={},
+pages={635-636},
+keywords={digital storage;logic design;PIM architecture exploration;HMC;memory wall phenomenon;PIM logic;processing in memory;hybrid memory cube;Bandwidth;System performance;Memory architecture;Arrays;Logic arrays;Degradation;Buffer storage;Processing in Memory;Hybrid Memory Cube},
+doi={10.1109/APCCAS.2016.7804052},
+ISSN={},
+month={Oct},}
+
+%% Neuron computation with HMC
+@inproceedings{oliveira2017nim,
+  title={Nim: An hmc-based machine for neuron computation},
+  author={Oliveira, Geraldo F and Santos, Paulo C and Alves, Marco AZ and Carro, Luigi},
+  booktitle={International Symposium on Applied Reconfigurable Computing},
+  pages={28--35},
+  year={2017},
+  organization={Springer}
+}
 
 %%%%%%%%%%%%%%%%%% Conclusion %%%%%%%%%%%%%%%%%
