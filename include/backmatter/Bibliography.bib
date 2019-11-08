@@ -722,6 +722,25 @@ abstract="The evolution of main memories, from SDR to the current DDR, presents 
 isbn="978-3-319-90023-0"
 }
 
+%% Re-visit of memory wall
+@inproceedings{Radulovic:2015:TWM:2818950.2818955,
+ author = {Radulovic, Milan and Zivanovic, Darko and Ruiz, Daniel and de Supinski, Bronis R. and McKee, Sally A. and Radojkovi\'{c}, Petar and Ayguad{\'e}, Eduard},
+ title = {Another Trip to the Wall: How Much Will Stacked DRAM Benefit HPC?},
+ booktitle = {Proceedings of the 2015 International Symposium on Memory Systems},
+ series = {MEMSYS '15},
+ year = {2015},
+ isbn = {978-1-4503-3604-8},
+ location = {Washington DC, DC, USA},
+ pages = {31--36},
+ numpages = {6},
+ url = {http://doi.acm.org/10.1145/2818950.2818955},
+ doi = {10.1145/2818950.2818955},
+ acmid = {2818955},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {DRAM, HPC, Memory wall, bandwidth, high bandwidth memory (HBM), hybrid memory cube (HMC), latency},
+} 
+
 %%%%%%%%%%%%%%%%% Methodology %%%%%%%%%%%%%%%%%
 
 %% CasHMC sim
@@ -870,13 +889,30 @@ doi={10.1109/IPDPSW.2014.164},
 ISSN={},
 month={May},}
 
-@online{prace2013ueabs,
-    author       = {{Partnership for Advanced Computing in Europe (PRACE)}},
-    title        = "Unified european applications benchmark suite",
-    howpublished = "Website",
-    year         = "2013",
-    month        = "oct",
-    note         = "\url{www.prace-ri.eu/ueabs/}"
+%% HMCSim ver 2.0
+@INPROCEEDINGS{7529923,
+author={J. D. {Leidel} and Y. {Chen}},
+booktitle={2016 IEEE International Parallel and Distributed Processing Symposium Workshops (IPDPSW)},
+title={HMC-Sim-2.0: A Simulation Platform for Exploring Custom Memory Cube Operations},
+year={2016},
+volume={},
+number={},
+pages={621-630},
+keywords={cache storage;parallel processing;simulation;HMC-Sim Hybrid Memory Cube simulation framework;memory hierarchy;associated memory pipeline;high performance computing;last-level cache;Performance evaluation;Kernel;Bandwidth;Atomic layer deposition;Random access memory;Memory management;Libraries;Hybrid Memory Cube;Custom Memory Cube;Simulation},
+doi={10.1109/IPDPSW.2016.43},
+ISSN={},
+month={May},}
+
+%% SPEC2006
+@article{henning2006spec,
+  title={SPEC CPU2006 benchmark descriptions},
+  author={Henning, John L},
+  journal={ACM SIGARCH Computer Architecture News},
+  volume={34},
+  number={4},
+  pages={1--17},
+  year={2006},
+  publisher={ACM}
 }
 
 @article{sprunt2002basics,
@@ -890,32 +926,55 @@ month={May},}
   publisher={IEEE Computer Society}
 }
 
+%% STREAM
 @article{mccalpin1995memory,
   title={Memory bandwidth and machine balance in current high performance computers},
   author={McCalpin, John D},
   year={1995}
 }
 
-@book{dongarra1979linpack,
-  title={LINPACK users' guide},
-  author={Dongarra, Jack J and Bunch, James R and Moler, Cleve B and Stewart, Gilbert W},
-  volume={8},
-  year={1979},
-  publisher={Siam}
+%% Characterization of SPEC 2006
+@article{prakash2008performance,
+  title={Performance characterization of spec cpu2006 benchmarks on intel core 2 duo processor},
+  author={Prakash, Tribuvan Kumar and Peng, Lu},
+  journal={ISAST Trans. Comput. Softw. Eng},
+  volume={2},
+  number={1},
+  pages={36--41},
+  year={2008}
+}
+@INPROCEEDINGS{4664856,
+author={A. {Kejariwal} and A. V. {Veidenbaum} and A. {Nicolau} and X. {Tian} and M. {Girkar} and H. {Saito} and U. {Banerjee}},
+booktitle={2008 International Conference on Embedded Computer Systems: Architectures, Modeling, and Simulation},
+title={Comparative architectural characterization of SPEC CPU2000 and CPU2006 benchmarks on the intel® Core™ 2 Duo processor},
+year={2008},
+volume={},
+number={},
+pages={132-141},
+keywords={cache storage;decision making;program compilers;SPEC CPU2000;SPEC CPU2006;Intel Core 2 Duo processor;decision making;built-in hardware performance counters;program behavior;processor resources;memory access behavior;L1 data;L2 cache miss rates;branch prediction accuracy;architecture optimization;compilers;Optimizing compilers;Performance analysis;Application software;Hardware;Counting circuits;Embedded computing;Microarchitecture;Decision making;Information analysis;Accuracy},
+doi={10.1109/ICSAMOS.2008.4664856},
+ISSN={},
+month={July},}
+@INPROCEEDINGS{4086140,
+author={D. {Ye} and J. {Ray} and C. {Harle} and D. {Kaeli}},
+booktitle={2006 IEEE International Symposium on Workload Characterization},
+title={Performance Characterization of SPEC CPU2006 Integer Benchmarks on x86-64 Architecture},
+year={2006},
+volume={},
+number={},
+pages={120-127},
+keywords={instruction sets;microprocessor chips;performance evaluation;SPEC CPU2006 integer benchmarks;x86-64 architecture;x86-64 processors;memory address space;CPU2006 integer programs;32 bit;64 bit;Registers;Computer architecture;Application software;Performance analysis;Multimedia databases;Operating systems;Microcomputers;Programming profession;Hardware;Arithmetic},
+doi={10.1109/IISWC.2006.302736},
+ISSN={},
+month={Oct},}
+@inproceedings{bird2007performance,
+  title={Performance characterization of spec cpu benchmarks on intel’s core microarchitecture based processor},
+  author={Bird, Sarah and Phansalkar, Aashish and John, Lizy K and Mericas, Alex and Indukuru, Rajeev},
+  booktitle={SPEC Benchmark Workshop},
+  pages={1--7},
+  year={2007}
 }
 
-@online{top500linpack,
-    author       = {{Top500 List}},
-    title        = "The Linpack Benchmark",
-    howpublished = "Website",
-    note         = "\url{http://www.top500.org/project/linpack/}"
-}
-
-@article{bitzes2014overhead,
-  title={The overhead of profiling using PMU hardware counters},
-  author={Bitzes, Georgios and Nowak, Andrzej},
-  year={2014}
-}
 
 %%%%%%%%%%%%%%%%%%% Results %%%%%%%%%%%%%%%%%%%
 
