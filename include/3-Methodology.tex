@@ -73,4 +73,6 @@ Depict a roofline model, if one exists already. Reference to what it is and sour
 \section{Measurement approach}
 Measure latency is done only in HMCSim, as we do not care about any latency that SST introduces as that is only for processing and cache. That makes gathering stats a little easier. There are separate APIs that enables latency stats. Will use average latency to compare between system configs. What are the configs going to be? Should we actaully compare DRAM and HMC, or just the allocation on multiple devices, i.e., the direct implication of introduced latency. TODO: Add cache warm-up as well.
 
-TODO: Mention SimPonts here, as well as PinPoints. The first might not have been possible to use here directly, but the latter should be possible to use since it uses the already featured PIN tool in Ariel. This would require some additional work, however. 
+TODO: We first perform a test run for a single HMC in order to establish application latency behaviour and sensitivity. Then we run the same benchmarks using 4, 6 and 8 devices to see how application performance maps towards latency. 
+
+TODO: Mention SimPonts here, as well as PinPoints. The first might not have been possible to use here directly, but the latter should be possible to use since it uses the already featured PIN tool in Ariel. This would require some additional work, however. As mentioned earlier, a more naïve approach is taken here with estimated warm-up and run time in instruction count. 

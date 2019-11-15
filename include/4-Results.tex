@@ -1,8 +1,11 @@
 \chapter{Results}
-In this chapter, we measure application performance in different systems. First, we use the reference system to establish the benchmark applications' characteristics. Next, we run simulations, configured to emulate the behaviour of different memory technologies, where we first set a performance baseline with DRAM and then measure HMC, HBM, WIO performance. Finally, we summarise the results.
+Simulating real applications in virtual hardware without any real interaction is hard and there are many things that can break along the way. The simulations were run on a by Chalmers provided compute cluster and took quite some time to complete. This cluster luckily used an older version of Ubuntu with a relatively old kernel, and since PIN 2 depends on old kernel functionality it meant it could be run without a hitch. In addition, in order to support the old ABI used with some of its binaries while having full support for C++11, GCC 4.9.4 had to be used, specifically. 
+\bigskip
+
+In this chapter we will first measure what latency behaviour looks like when using one single HMC device, with a single link hop. Then we will increase the number of devices and always use the device at the end of the chain, e.g. when having 8 devices we will perform all allocations on the 8th device. We will view these results both from a device and a application perspective. Finally, we present a short summary of our findings.
 
 \section{Simulation}
-Now that the benchmark applications have been evaluated, we would like to see what performance impact we get from running them again but with different memory types. This should, in turn, mean that these two applications probably will see the largest respectively the lowest gain in performance from faster memories. Therefore, the following simulations only include these two benchmarks. 
+TODO: How to present this? Segmentation?
 
 \section{Summary}
 Summarise the results without actually discussing the implications; leave that for the next part!
