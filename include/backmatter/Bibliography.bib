@@ -368,6 +368,45 @@ month={Oct},}
 	abstract = {For reliable operation, individual cells of an STT-MRAM memory array must meet specific requirements on their performance. In this work we review some of these requirements and discuss the fundamental physical principles of STT-MRAM operation, covering the range from device level to chip array performance, and methodology for its development.}
 }
 
+%% Stacking emerging tech, e.g. MRAM
+@inproceedings{Wu:2009:HCA:1555754.1555761,
+ author = {Wu, Xiaoxia and Li, Jian and Zhang, Lixin and Speight, Evan and Rajamony, Ram and Xie, Yuan},
+ title = {Hybrid Cache Architecture with Disparate Memory Technologies},
+ booktitle = {Proceedings of the 36th Annual International Symposium on Computer Architecture},
+ series = {ISCA '09},
+ year = {2009},
+ isbn = {978-1-60558-526-0},
+ location = {Austin, TX, USA},
+ pages = {34--45},
+ numpages = {12},
+ url = {http://doi.acm.org/10.1145/1555754.1555761},
+ doi = {10.1145/1555754.1555761},
+ acmid = {1555761},
+ publisher = {ACM},
+ address = {New York, NY, USA},
+ keywords = {hybrid cache architecture, three-dimensional ic},
+}
+
+%% 3D Xpoint is PCM
+@misc{jeongdong_2017, 
+  title={Intel 3D XPoint Memory Die Removed from Intel Optane™ PCM (Phase Change Memory)}, 
+  url={https://www.techinsights.com/blog/intel-3d-xpoint-memory-die-removed-intel-optanetm-pcm-phase-change-memory}, 
+  journal={TechInsights Inc.}, 
+  author={Jeongdong, Choe}, 
+  year={2017}, 
+  month={May}
+} 
+
+%% 96 layer V-NAND
+@misc{tallis_2017, 
+  title={Samsung At Flash Memory Summit: 96-Layer V-NAND, MLC Z-NAND, New Interfaces}, 
+  url={https://www.anandtech.com/show/11703/samsung-at-flash-memory-summit-96layer-vnand-mlc-znand-new-interfaces}, 
+  journal={Anandtech}, 
+  author={Tallis, Billy}, 
+  year={2017}, 
+  month={Aug}
+}
+
 %% DRAM energy usage 22% of total sys power
 @INPROCEEDINGS{4658649,
 author={N. {Aggarwal} and J. F. {Cantin} and M. H. {Lipasti} and J. E. {Smith}},
@@ -433,6 +472,20 @@ author = "Michael A. Bender and Jonathan W. Berry and Simon D. Hammond and K. Sc
 keywords = "Two-level memory, High-bandwidth memory, Sorting, -means clustering",
 abstract = "A challenge in computer architecture is that processors often cannot be fed data from DRAM as fast as CPUs can consume it. Therefore, many applications are memory-bandwidth bound. With this motivation and the realization that traditional architectures (with all DRAM reachable only via bus) are insufficient to feed groups of modern processing units, vendors have introduced a variety of non-DDR 3D memory technologies (Hybrid Memory Cube (HMC),Wide I/O 2, High Bandwidth Memory (HBM)). These offer higher bandwidth and lower power by stacking DRAM chips on the processor or nearby on a silicon interposer. We will call these solutions “near-memory,” and if user-addressable, “scratchpad.” High-performance systems on the market now offer two levels of main memory: near-memory on package and traditional DRAM further away. In the near term we expect the latencies near-memory and DRAM to be similar. Thus, it is natural to think of near-memory as another module on the DRAM level of the memory hierarchy. Vendors are expected to offer modes in which the near memory is used as cache, but we believe that this will be inefficient. In this paper, we explore the design space for a user-controlled multi-level main memory. Our work identifies situations in which rewriting application kernels can provide significant performance gains when using near-memory. We present algorithms designed for two-level main memory, using divide-and-conquer to partition computations and streaming to exploit data locality. We consider algorithms for the fundamental application of sorting and for the data analysis kernel k-means. Our algorithms asymptotically reduce memory-block transfers under certain architectural parameter settings. We use and extend Sandia National Laboratories’ SST simulation capability to demonstrate the relationship between increased bandwidth and improved algorithmic performance. Memory access counts from simulations corroborate predicted performance improvements for our sorting algorithm. In contrast, the k-means algorithm is generally CPU bound and does not improve when using near-memory except under extreme conditions. These conditions require large instances that rule out SST simulation, but we demonstrate improvements by running on a customized machine with high and low bandwidth memory. These case studies in co-design serve as positive and cautionary templates, respectively, for the major task of optimizing the computational kernels of many fundamental applications for two-level main memory systems."
 }
+
+%% Mitigate 3D memory chip heat negative performance
+@INPROCEEDINGS{7252085,
+author={B. K. {Mohanty} and V. {Chaturvedi} and V. {Rathore} and T. {Srikanthan}},
+booktitle={2015 IEEE International Conference on Digital Signal Processing (DSP)},
+title={Memory-access aware work-load distribution for peak-temperature reduction of 3D multi-core embedded systems},
+year={2015},
+volume={},
+number={},
+pages={1270-1273},
+keywords={DRAM chips;embedded systems;multiprocessing systems;thermal analysis;three-dimensional integrated circuits;multiple cores;computation demand;embedded systems;on-chip wire delays;on-chip interconnects;dynamic power dissipation;three-dimensional stacking;3D stacking;dies;intra-chip distances;signal transmission;interconnect bottleneck;3D integration;through silicon via;TSV;memory-logic communication bandwidth;3D multi-core system;heat removal capability;heat-sink position;thermal profile;DRAM memory layers;thermal efficiency;selective work load distribution;run-time distribution;Multicore processing;Three-dimensional displays;Thermal loading;Heating;Random access memory;Power demand;Benchmark testing},
+doi={10.1109/ICDSP.2015.7252085},
+ISSN={1546-1874},
+month={July},}
 
 %%%%%%%%%%%%%%%%%% Background %%%%%%%%%%%%%%%%%
 
