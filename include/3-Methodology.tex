@@ -1,4 +1,4 @@
-\chapter{Methodology}
+\chapter{Methodology} \label{method}
 Evaluating new memory technologies without having physical access to them requires simulation of their designs. There is always a measure of uncertainty and error when performing simulations, but it still gives a reasonable estimation of what to expect from the real hardware. Some argue that, e.g., cycle accurate simulators might not be the best approach in system evaluation \cite{weaver2008cycle}, but in this study all memories will be evaluated with the same errors, and thus the relationship between their performances should remain relevant. 
 \bigskip
 
@@ -60,7 +60,7 @@ TODO: Mention what numbers are being used and see if we can get back the source 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Benchmarks  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Benchmarks}
+\section{Benchmarks} \label{method-benches}
 In order to evaluate performance of the system, a number of benchmarks from the SPEC CPU2006 will be run \cite{henning2006spec}. Due to the amount of time it takes to simulate these different configurations, a few benchmarks were selected based on their memory intensity. Prakash et al. made a performance characterization for the different test suites in SPEC run on a Intel Core 2 Duo, and determined that: \emph{mcf}, \emph{milc}, \emph{soplex}, \emph{lbm} and \emph{omnetpp} were the benchmarks that had the most L2 cache misses, which means that they utilised the main memory the most \cite{prakash2008performance}. Similar studies have been made, which mostly come to the same conclusion regarding mostly memory-bound applications \cite{4664856} \cite{4086140} \cite{bird2007performance}. Since the goal is to find worst-case performance degradation in a HMC network, we want to use applications which use the memory as much as possible. In addition, to test how a much more CPU-bound application reacts to the added memory latency, we also add \emph{namd} to the list. This should give us a good view of how different kinds of applications work in this setting. 
 \bigskip
 
