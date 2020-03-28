@@ -82,6 +82,79 @@ Adding even more links, using eight instead of four, will further hamper the app
     \label{Memory-access-444-average-latency}
 \end{figure}
 
+\subsection{SOPLEX}
+Soplex is a linear program where every iteration depends on the last one. As such, while the application is memory intensive, increased MLP should not yield any significant improvements for the general algorithm. However, when starting to look at the average latencies we notice an unexpected result, as seen in figure \ref{Memory-access-450-average-latency}. Having four devices with eight links generates, marginally, better results with respect to the average latency. It is hard to determine what exactly made the difference, since, as can be seen in the comparative figure \ref{Memory-access-450-4-dev-4-8-links}, the access patterns between the two look more or less identical. This resembles what other applications have showcased, that increased hop distance masks latencies added by contention. The average values are rounded down as well and the real difference isn't that big. In the end, this result could be interpreted as being within the margin of error and the real results be seen as more or less equal.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/450-averages.jpg}
+    \caption{Comparing average latencies between configurations.}
+    \label{Memory-access-450-average-latency}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/450-4.4-8.jpg}
+    \caption{Nearly identical latencies with four and eight links when using four devices.}
+    \label{Memory-access-450-4-dev-4-8-links}
+\end{figure}
+
+Otherwise we see a repeated pattern in figure \ref{Memory-access-450-2-dev-4-8-links}, where additional spikes arises 9 ns behind the largest peaks when using eight links and allocating data close to the processor. This also affects the average latency in this configuration, making it 3 ns slower compared to using only four links due to this phenomena. As seen before, however, this behaviour seem to be isolated to having more links close to the processor. Otherwise, it does not look like soplex neither suffers nor gains from having access to more links. 
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/450-2.4-8.jpg}
+    \caption{Using eight links close to the processor creates additional spikes.}
+    \label{Memory-access-450-2-dev-4-8-links}
+\end{figure}
+
+\subsection{LBM}
+The results for lbm are quite similar to that of namd, except that the former has a lot more memory requests than the latter. This both means that the graphs resembles one another to some extent but the otherwise prominent peaks at 93 ns intervals start to become irrelevant a lot sooner with namd. This both implies that the application's algorithm is both memory intensive and likely relies a lot on arrays and/or pointers. This means that most data lookups are stored in a data structure requiring accessing pointers and thereby increases the number of DRAM accesses inside cubes. Having even longer hops does not affect performance any more significantly than pointer chasing already does, as can be seen when comparing the average latencies in figure \ref{Memory-access-470-averages}. Furthermore, when studying the access pattern of different network configurations in figure \ref{Memory-access-470} we see, once again, that the patterns are very similar and that the biggest peak is at twice that of the optimal latency.
+\bigskip
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/470-averages.jpg}
+    \caption{Comparing average latencies between configurations.}
+    \label{Memory-access-470-averages}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/470-x.4.jpg}
+    \caption{Access patterns between configurations.}
+    \label{Memory-access-470}
+\end{figure}
+
+The same behaviour regarding using four and eight links close to the cpu, i.e. only having one device, is present when running lbm. There appears to be the same loss in performance both to contention as well as the additional peaks. Lastly, it should be noted that running lbm using eight links and six devices took too long to complete and the session was terminated without any result available. However, the trends present among the other results, the outcome does not look very difficult to guess.
+
+\subsection{OMNETPP}
+Finally, omnetpp is run and while the results look similar to other applications there is one anomality seen in figure \ref{Memory-access-471}. The trend lines show that there is a bigger gap between the configurations than we have seen previously, indicating that this application is causing more contention along the hops than the others have done. Since omnetpp, an application modeling large Ethernet networks, inherently supports parallelisation it might be that the application tries to do many things simultaneously. This could be conflicting with the single core host set up and could generate some waiting already at run time. 
+\bigskip
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/471-x.4.jpg}
+    \caption{Access patterns between configurations.}
+    \label{Memory-access-471}
+\end{figure}
+
+Viewing figure \ref{Memory-access-471-link-compare}, which compares access times using four and eight links, it looks like adding MLP is unusually forgiving in terms of the size of the second spike. Comparing link configurations when having multiple hops gives more or less identical results, and the contention created by having more links available is hidden by the latency of network traversal. Despite this, the average latencies for the different setups follows a similar pattern as previous runs, as seen in figure \ref{Memory-access-471-averages}.
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/471-2.4-8.jpg}
+    \caption{Access patterns between configurations.}
+    \label{Memory-access-471-link-compare}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/471-averages.jpg}
+    \caption{Access patterns between configurations.}
+    \label{Memory-access-471-averages}
+\end{figure}
+
 % A first test was run with 429.mcf, which is arguably the most memory intense and latency sensitive benchmark out of the chose applications, just to see how the system's simulated memory would behave. This test was run using one active link and data allocated on the closest device. Figure \ref{Memory-access-behaviour} shows a graph over the number of times a specific access time, in ns, was reached for all simulated memory requests. The pattern seen is a more or a less repetitive form which reappears with 93 ns interval. The single link means that we only are connected directly to a single vault, and accesses to memory locations belonging to other vaults will have to be routed in the mesh network. However, since HMCSim probably does not perform a DRAM lookup -- which would incur a 93 ns latency, given our configuration -- for a request not belonging to the single vault, it is more likely that this pattern is due to HMC's Custom Memory Commands (CMC). A few such are implemented in HMCSim, e.g. for atomic access to multiple pages, and these will perform a new lookup for every requested page. The high amount of latency this adds is most likely due to HMC using a closed page policy, meaning that there will be no hits in the row buffer and even sequential data will have to fetched again.
 
 % \begin{figure}[!h]
@@ -92,4 +165,24 @@ Adding even more links, using eight instead of four, will further hamper the app
 % \end{figure}
 
 \section{Summary}
-Summarise the results without actually discussing the implications; leave that for the next part!
+The behaviour seen between the different applications is remarkably similar. All runs provide an access latency pattern which all have the same main points. There will be an initial spike at the shortest possible latency with an arcuate, downward shape ending in another peak 93 ns later. This latter peak is either an order of magnitude bigger or smaller, depending on the application and what data and algorithm it is based on. Next there is again an arcuate shape very similar to the previous one ending in a peak 93 ns later. This repeats until there are too few memory accesses to make a comparison worthwhile. This happens regardless of how many links or cubes there are in the network, with one important exception: adding four extra links, i.e. using eight links, while allocating data close to processor will result in added waiting and a possible loss of performance. This could be due to the basic setup of the simulator, where the memory controller naively uses a round robin policy to check each link in turn for data. TODO: Could be that single core cpu makes MLP really hard to use?
+
+A summarised view of the average latencies can be seen in figure \ref{All-apps-latency}, where they all seem to portay the same amount of increase for each added hop. However, studying the increase in average latency in more detail, in figure \ref{All-apps-latency-trends}, we can see that some applications have a slightly higher increase than others. Specifically, mcf, which is supposed to be latency sensitive, shows that it does suffer from the slower access times. 
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/all-apps-latencies.jpg}
+    \caption{Access patterns between configurations.}
+    \label{All-apps-latency}
+\end{figure}
+
+\begin{figure}[!h]
+    \centering
+    \includegraphics[width=0.75\linewidth]{figure/all-apps-latencies-trends.jpg}
+    \caption{Access patterns between configurations.}
+    \label{All-apps-latency-trends}
+\end{figure}
+
+TODO: Talk about how contention appears when having more than 1 device in the network and what that looks like from any of the previous images (ref).
+
+TODO: We have an advantage in memory utilisation where having HMC's abstract network layer decreases the number of trips to host. Traditionally, CPU need to determine if something is a pointer, consult the TLB if it is present and otherwise access main memory for it. With this approach, we instead leave out the extra trip back to CPU and instead allow the memory controller (logic layer) to determine this. 
