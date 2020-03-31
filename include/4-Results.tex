@@ -12,25 +12,25 @@ The simulations were run with multiple configurations, where every application (
 The first application to be run is the, arguably, most memory intensive and latency sensitive benchmark in the SPEC2006 suite - 429.mcf. Figure \ref{Memory-access-429-single}, visualising access times when a single HMC device is being used, shows that there is a lot of latency going on during application run time, even though the only contention available is from its own memory requests. Additionally, there are notable peeks present at precisely 93 ns intervals. This could be explained as pointer chasing, where first hit is pointer lookup and the second hit, i.e. 93 ns later, is the data lookup. Between the peaks the latency patterns look quite similar. Having just one memory device is the most efficient solution available in this situation, hence we denote this as an optimal solution.
 \bigskip
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\linewidth]{figure/429-x.4-1.jpg}
+    \includegraphics[width=1.0\linewidth]{figure/429-x_4-1.jpg}
     \caption{Access times using one device with four links, running 429.mcf.}
     \label{Memory-access-429-single}
 \end{figure}
 
 Adding more devices, and inherently placing data fruther from the host, will incurr greater latencies as seen in figure \ref{Memory-access-429}. However, it can be noted that the peaks all have about the same magnitude and the repeating pattern in between is reminescent of each other but with a few differences. These variations should be due to contention arising on the links when data to and from far-away devices tries to use the same links. It should also be noted that the contention looks different depending on distance, and while it mostly follows the access pattern from the optimal case it adds latencies at different places. Looking closer, in figure \ref{Memory-access-429-double}, where the access patterns of one and two devices respectively are put together, we can better distinguish between the patterns. We make sure to align the graphs in order to compensate for the hops distances. With the trend line for each setup we can see that there overall is some added latency with contention on the routing links. This gives rise to additional loss of performance. Interestingly, for this benchmark application, contention does not increase linearly with added number of devices, i.e. hops. Using four devices will increase the overall contention just slightly, while having six devices makes contention notably higher. The overall application performance still suffers from the added latency that multiple, long hops brings.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\linewidth]{figure/429-x.4.jpg}
+    \includegraphics[width=1.0\linewidth]{figure/429-x_4.jpg}
     \caption{Comparing access times when using one, two, four and six devices.}
     \label{Memory-access-429}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\linewidth]{figure/429-x.4-2.jpg}
+    \includegraphics[width=1.0\linewidth]{figure/429-x_4-2.jpg}
     \caption{Part of the access patterns for one and two devices, where the latter has been adjusted to compensate for initial latency.}
     \label{Memory-access-429-double}
 \end{figure}
@@ -38,9 +38,9 @@ Adding more devices, and inherently placing data fruther from the host, will inc
 Next we run using more links between the host and first device, as well as between individual cubes. Specifically, we now simulate using eight links instead of the previous four, of which four respectively two were usable (as explained in \ref{HMC-Sim}). This should to some extent alleviate the contention issue, but since the access scheme of the links is a simple round robin there might also be some added waiting time before data gets to the host. Running mcf using eight links and more than four devices turned out to take too long time (excess of 2 months run time) and those simulations were finally terminated.
 \bigskip
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\linewidth]{figure/429-2.4-8.jpg}
+    \includegraphics[width=1.0\linewidth]{figure/429-2_4-8.jpg}
     \caption{Part of the access patterns for one and two devices, where the latter has been adjusted to compensate for initial latency.}
     \label{Memory-access-429-link-compare}
 \end{figure}
@@ -48,7 +48,7 @@ Next we run using more links between the host and first device, as well as betwe
 Running mcf using eight links produces some odd results. As can be seen in figure \ref{Memory-access-429-link-compare} the access pattern looks very much like using only four links, but there are new tailing spikes at 9 ns later. The second spike is a split of the otherwise always present 93 ns interval peak, where close to 20\% of all accesses are delayed with 9 ns. This could be due to how the host accesses each link with a round robin policy and that there is an additional wait introduced when the concurrency of multiple links cannot be utilised. By increasing bandwidth, through increased parallelism, we potentially worsen performance for this single application. However, when using two cubes, i.e. adding a hop, the patterns look almost identical. As such, the added latency of multiple links is cancelled out when having longer network traversal time.
 \bigskip
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\linewidth]{figure/429-averages.jpg}
     \caption{Comparing average latencies between configurations.}
@@ -60,24 +60,24 @@ Average latency increases with added network hops, as can be expected, but it al
 \subsection{NAMD}
 Namd is a mostly compute bound application. This should make access patterns look a little different based on how much data is accessed at a time. In figure \ref{Memory-access-444} we can see what those patterns look like using one, three, five and seven cubes in the network. While the patterns look quite similar, and while using one single device appears to provide the best results, the number of memory requests are simply too low for it to make any substantial difference. Moreover, there appears to be relatively few requests simply returning accessed memory requests immediately, i.e. having a latency of 93 ns, which worsens the application's overall performance severly. Most requests are served after 186 ns, which is double that of the minimal possible latency. Namd performs a lot of array lookups and it could be this often-accessed array we are seeing being used. Additionally, since Namd is a serial benchmark, it might be that the introduced MLP only hurts performance. Sadly HMCSim cannot be configured using one single link and thus there is no easy way to verify this claim here.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=1\linewidth]{figure/444-x.4-1.jpg}
+    \includegraphics[width=1\linewidth]{figure/444-x_4-1.jpg}
     \caption{Comparing average latencies between configurations.}
     \label{Memory-access-444}
 \end{figure}
 
 Adding even more links, using eight instead of four, will further hamper the application. Interestingly, the same behaviour as was seen in the mcf results are seen in figure \ref{Memory-access-444-links-compare} as well. There are new peaks added 9 ns after the otherwise normally present peaks, but these disappear as more devices are added to the network. This spike has a much greater impact to this application's average latency compared to mcf, adding 5 ns as compared to 2 ns. However, in the end, as can be seen in figure \ref{Memory-access-444-average-latency} the biggest hit to performance is taken when introducing new hops. 
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\linewidth]{figure/444-2.4-8.jpg}
+    \includegraphics[width=0.75\linewidth]{figure/444-2_4-8.jpg}
     \caption{Comparing average latencies between configurations.}
     \label{Memory-access-444-links-compare}
 \end{figure}
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\linewidth]{figure/444.averages.jpg}
+    \includegraphics[width=0.75\linewidth]{figure/444_averages.jpg}
     \caption{Comparing average latencies between configurations.}
     \label{Memory-access-444-average-latency}
 \end{figure}
@@ -85,25 +85,25 @@ Adding even more links, using eight instead of four, will further hamper the app
 \subsection{SOPLEX}
 Soplex is a linear program where every iteration depends on the last one. As such, while the application is memory intensive, increased MLP should not yield any significant improvements for the general algorithm. However, when starting to look at the average latencies we notice an unexpected result, as seen in figure \ref{Memory-access-450-average-latency}. Having four devices with eight links generates, marginally, better results with respect to the average latency. It is hard to determine what exactly made the difference, since, as can be seen in the comparative figure \ref{Memory-access-450-4-dev-4-8-links}, the access patterns between the two look more or less identical. This resembles what other applications have showcased, that increased hop distance masks latencies added by contention. The average values are rounded down as well and the real difference isn't that big. In the end, this result could be interpreted as being within the margin of error and the real results be seen as more or less equal.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\linewidth]{figure/450-averages.jpg}
     \caption{Comparing average latencies between configurations.}
     \label{Memory-access-450-average-latency}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\linewidth]{figure/450-4.4-8.jpg}
+    \includegraphics[width=0.75\linewidth]{figure/450-4_4-8.jpg}
     \caption{Nearly identical latencies with four and eight links when using four devices.}
     \label{Memory-access-450-4-dev-4-8-links}
 \end{figure}
 
 Otherwise we see a repeated pattern in figure \ref{Memory-access-450-2-dev-4-8-links}, where additional spikes arises 9 ns behind the largest peaks when using eight links and allocating data close to the processor. This also affects the average latency in this configuration, making it 3 ns slower compared to using only four links due to this phenomena. As seen before, however, this behaviour seem to be isolated to having more links close to the processor. Otherwise, it does not look like soplex neither suffers nor gains from having access to more links. 
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\linewidth]{figure/450-2.4-8.jpg}
+    \includegraphics[width=0.75\linewidth]{figure/450-2_4-8.jpg}
     \caption{Using eight links close to the processor creates additional spikes.}
     \label{Memory-access-450-2-dev-4-8-links}
 \end{figure}
@@ -112,16 +112,16 @@ Otherwise we see a repeated pattern in figure \ref{Memory-access-450-2-dev-4-8-l
 The results for lbm are quite similar to that of namd, except that the former has a lot more memory requests than the latter. This both means that the graphs resembles one another to some extent but the otherwise prominent peaks at 93 ns intervals start to become irrelevant a lot sooner with namd. This both implies that the application's algorithm is both memory intensive and likely relies a lot on arrays and/or pointers. This means that most data lookups are stored in a data structure requiring accessing pointers and thereby increases the number of DRAM accesses inside cubes. Having even longer hops does not affect performance any more significantly than pointer chasing already does, as can be seen when comparing the average latencies in figure \ref{Memory-access-470-averages}. Furthermore, when studying the access pattern of different network configurations in figure \ref{Memory-access-470} we see, once again, that the patterns are very similar and that the biggest peak is at twice that of the optimal latency.
 \bigskip
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\linewidth]{figure/470-averages.jpg}
     \caption{Comparing average latencies between configurations.}
     \label{Memory-access-470-averages}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\linewidth]{figure/470-x.4.jpg}
+    \includegraphics[width=0.75\linewidth]{figure/470-x_4.jpg}
     \caption{Access patterns between configurations.}
     \label{Memory-access-470}
 \end{figure}
@@ -132,23 +132,23 @@ The same behaviour regarding using four and eight links close to the cpu, i.e. o
 Finally, omnetpp is run and while the results look similar to other applications there is one anomality seen in figure \ref{Memory-access-471}. The trend lines show that there is a bigger gap between the configurations than we have seen previously, indicating that this application is causing more contention along the hops than the others have done. Since omnetpp, an application modeling large Ethernet networks, inherently supports parallelisation it might be that the application tries to do many things simultaneously. This could be conflicting with the single core host set up and could generate some waiting already at run time. 
 \bigskip
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\linewidth]{figure/471-x.4.jpg}
+    \includegraphics[width=0.75\linewidth]{figure/471-x_4.jpg}
     \caption{Access patterns between configurations.}
     \label{Memory-access-471}
 \end{figure}
 
 Viewing figure \ref{Memory-access-471-link-compare}, which compares access times using four and eight links, it looks like adding MLP is unusually forgiving in terms of the size of the second spike. Comparing link configurations when having multiple hops gives more or less identical results, and the contention created by having more links available is hidden by the latency of network traversal. Despite this, the average latencies for the different setups follows a similar pattern as previous runs, as seen in figure \ref{Memory-access-471-averages}.
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
-    \includegraphics[width=0.75\linewidth]{figure/471-2.4-8.jpg}
+    \includegraphics[width=0.75\linewidth]{figure/471-2_4-8.jpg}
     \caption{Access patterns between configurations.}
     \label{Memory-access-471-link-compare}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\linewidth]{figure/471-averages.jpg}
     \caption{Access patterns between configurations.}
@@ -171,14 +171,14 @@ The behaviour seen between the different applications is remarkably similar. All
 A summarised view of the average latencies can be seen in figure \ref{All-apps-latency}, where they all seem to portay the same amount of increase for each added hop. However, studying the increase in average latency in more detail, in figure \ref{All-apps-latency-trends}, we can see that some applications have a slightly higher increase than others. Specifically, mcf, which is supposed to be latency sensitive, shows that it does suffer from the longer access times. While the results obtained does seem to support this claim, it should be noted that the mcf trend line in figure \ref{All-apps-latency-trends} is based on fewer results than other applications.
 \bigskip
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\linewidth]{figure/all-apps-latencies.jpg}
     \caption{Access patterns between configurations.}
     \label{All-apps-latency}
 \end{figure}
 
-\begin{figure}[!h]
+\begin{figure}[!ht]
     \centering
     \includegraphics[width=0.75\linewidth]{figure/all-apps-latencies-trends.jpg}
     \caption{Access patterns between configurations.}
