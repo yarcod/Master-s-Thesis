@@ -67,7 +67,7 @@ Namd is a mostly compute bound application. This should make access patterns loo
     \label{Memory-access-444}
 \end{figure}
 
-Adding even more links, using eight instead of four, will further hamper the application. Interestingly, the same behaviour as was seen in the mcf results are seen in figure \ref{Memory-access-444-links-compare} as well. There are new peaks added 9 ns after the otherwise normally present peaks, but these disappear as more devices are added to the network. This spike has a much greater impact to this application's average latency compared to mcf, adding 5 ns as compared to 2 ns. However, in the end, as can be seen in figure \ref{Memory-access-444-average-latency} the biggest hit to performance is taken when introducing new hops. 
+Adding even more links, using eight instead of four, will further hamper the application. Interestingly, the same behaviour as was seen in the mcf results are seen in figure \ref{Memory-access-444-links-compare} as well. There are new peaks added 9 ns after the otherwise normally present peaks, but these disappear as more devices are added to the network. This spike has a much greater impact to this application's average latency compared to mcf, adding 5 ns as compared to 2 ns. It should be noted that the trend lines are both diverging and get an unusal large gap towards the end, but this could be explained both by the low amound of memory usage, thus making the graph skewed, and that the application cannot utilise the added links properly. However, in the end, as can be seen in figure \ref{Memory-access-444-average-latency}, the biggest hit to performance is taken when introducing new hops. 
 
 \begin{figure}[!ht]
     \centering
