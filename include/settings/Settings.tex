@@ -9,6 +9,7 @@
 \usepackage[T1]{fontenc}							% Output settings
 \usepackage[english]{babel}							% Language settings
 \usepackage[utf8]{inputenc}							% Input settings
+\usepackage[en-GB]{datetime2}						% Enables date formatting and printing
 \usepackage{amsmath}								% Mathematical expressions (American mathematical society)
 \usepackage{amssymb}								% Mathematical symbols (American mathematical society)
 \usepackage{graphicx}								% Figures
@@ -30,6 +31,11 @@
 \usepackage{hyperref}                               % A good way to include URLs inside the bib or in the text if needed
 
 % OPTIONAL SETTINGS (DELETE OR COMMENT TO SUPRESS)
+
+% Referencing these instead of having to change all of them
+\def\THETITLE{Performance Evaluation of Latency Induced Memory Networks}
+\def\TITLEDESCR{A Case Study of Hybrid Memory Cube Networking Capabilities}
+
 
 % Disable automatic indentation (equal to using \noindent)
 \setlength{\parindent}{0cm}                         
@@ -82,3 +88,7 @@
 	\fancyhead[C]{\nouppercase{ \leftmark}}
 	\fancyfoot[C]{\thepage}
 \fi
+
+
+% Supress underfull hbox warnings
+\hbadness=99999  % or any number >=10000
