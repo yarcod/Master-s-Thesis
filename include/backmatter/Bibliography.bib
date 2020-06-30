@@ -1061,6 +1061,44 @@ series = {IA3 ’15}
   pages={36--41},
   year={2008}
 }
+
+%% Explaining memory access patterns
+@article{10.1145/342001.339668,
+author = {Rixner, Scott and Dally, William J. and Kapasi, Ujval J. and Mattson, Peter and Owens, John D.},
+title = {Memory Access Scheduling},
+year = {2000},
+issue_date = {May 2000},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = {28},
+number = {2},
+issn = {0163-5964},
+url = {https://doi.org/10.1145/342001.339668},
+doi = {10.1145/342001.339668},
+journal = {SIGARCH Comput. Archit. News},
+month = may,
+pages = {128–138},
+numpages = {11}
+}
+  
+@inproceedings{10.1145/339647.339668,
+author = {Rixner, Scott and Dally, William J. and Kapasi, Ujval J. and Mattson, Peter and Owens, John D.},
+title = {Memory Access Scheduling},
+year = {2000},
+isbn = {1581132328},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/339647.339668},
+doi = {10.1145/339647.339668},
+booktitle = {Proceedings of the 27th Annual International Symposium on Computer Architecture},
+pages = {128–138},
+numpages = {11},
+location = {Vancouver, British Columbia, Canada},
+series = {ISCA ’00}
+}
+  
+
+
 @INPROCEEDINGS{4664856,
 author={A. {Kejariwal} and A. V. {Veidenbaum} and A. {Nicolau} and X. {Tian} and M. {Girkar} and H. {Saito} and U. {Banerjee}},
 booktitle={2008 International Conference on Embedded Computer Systems: Architectures, Modeling, and Simulation},
@@ -1115,34 +1153,69 @@ doi = {10.1145/1772954.1772958}
 
 %%%%%%%%%%%%%%%%%%% Results %%%%%%%%%%%%%%%%%%%
 
-@article{levinthal2009performance,
-  title={Performance analysis guide for intel core i7 processor and intel xeon 5500 processors},
-  author={Levinthal, David},
-  journal={Intel Performance Analysis Guide},
-  year={2009}
+%% HMC NoC and latency affected by requests
+@INPROCEEDINGS{8366939,
+  author={R. {Hadidi} and B. {Asgari} and J. {Young} and B. {Ahmad Mudassar} and K. {Garg} and T. {Krishna} and H. {Kim}},
+  booktitle={2018 IEEE International Symposium on Performance Analysis of Systems and Software (ISPASS)}, 
+  title={Performance Implications of NoCs on 3D-Stacked Memories: Insights from the Hybrid Memory Cube}, 
+  year={2018},
+  volume={},
+  number={},
+  pages={99-108},}
+  
+%% Characterization of SPEC apps, namd, mcf, lbm, omnetpp
+@inproceedings{10.1145/3307650.3322229,
+author = {Wang, Zhengrong and Nowatzki, Tony},
+title = {Stream-Based Memory Access Specialization for General Purpose Processors},
+year = {2019},
+isbn = {9781450366694},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3307650.3322229},
+doi = {10.1145/3307650.3322229},
+booktitle = {Proceedings of the 46th International Symposium on Computer Architecture},
+pages = {736–749},
+numpages = {14},
+keywords = {ISA, specialization, prefetching, cache bypassing, stream, decoupled access execute, DAE, microarchitecture},
+location = {Phoenix, Arizona},
+series = {ISCA ’19}
 }
 
-@inproceedings{ofenbeck2014applying,
-  title={Applying the roofline model},
-  author={Ofenbeck, Georg and Steinmann, Ruedi and Caparros, Victoria and Spampinato, Daniele G and Puschel, Markus},
-  booktitle={Performance Analysis of Systems and Software (ISPASS), 2014 IEEE International Symposium on},
-  pages={76--85},
-  year={2014},
-  organization={IEEE}
+%% IPC variations over time for soplex
+@techreport{song2018experiments,
+  title={Experiments with spec cpu 2017: Similarity, balance, phase behavior and simpoints},
+  author={Song, Shuang and Wu, Qinzhe and Flolid, Steven and Dean, Joseph and Panda, Reena and Deng, Junyong and John, Lizy K},
+  year={2018},
+  institution={Tech. Rep. TR-180515-01, LCA Group, Department of Electrical and Computer~…}
 }
 
-@article{williams2009roofline,
-  title={Roofline: an insightful visual performance model for multicore architectures},
-  author={Williams, Samuel and Waterman, Andrew and Patterson, David},
-  journal={Communications of the ACM},
-  volume={52},
-  number={4},
-  pages={65--76},
-  year={2009},
-  publisher={ACM}
+%% A latency/bandwidth comparison, sensitivity
+@inproceedings{10.1145/3167132.3167249,
+author = {Oh, Myonghoon and Choi, Jongmoo and Cho, Seong-je and Kim, Jeesoo and Youn, Changhwan and Chung, Woosuk},
+title = {Analyzing and Modeling the Impact of Memory Latency and Bandwidth on Application Performance},
+year = {2018},
+isbn = {9781450351911},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+url = {https://doi.org/10.1145/3167132.3167249},
+doi = {10.1145/3167132.3167249},
+booktitle = {Proceedings of the 33rd Annual ACM Symposium on Applied Computing},
+pages = {1095–1101},
+numpages = {7},
+keywords = {NVM (non-volatile memory), analysis, performance model, memory latency and bandwidth},
+location = {Pau, France},
+series = {SAC ’18}
 }
 
 %%%%%%%%%%%%%%%%%% Discussion %%%%%%%%%%%%%%%%%
+
+%% Material describing limitations with HMC backends, getting BW right
+@misc{hammond_rodrigues_hemmert, 
+title={SST Validation Activity}, 
+url={https://sst-simulator.org/SSTPages/SSTValidationActivity/}, 
+journal={sstsimulator.github.io}, 
+author={Hammond, Simon and Rodrigues, Arun and Hemmert, Scott}
+} 
 
 %% Comparison between multi-level memory with an all-DDR4 system.
 @inproceedings{Awad:2017:PAU:3132402.3132422,
